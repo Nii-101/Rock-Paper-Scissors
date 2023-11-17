@@ -1,8 +1,10 @@
+#!/usr/bin/python3
+"""A simple rock paper scissors game"""
 import random
 
 
-# INTRO TO THE GAME AND TAKING PLAYER NAME
 def intro():
+    """ INTRO TO THE GAME AND TAKING PLAYER NAME """
     print("🎈Welcome to ULTIMATE ROCK, PAPER, SCISSORS!🎈")
     get_player_name = input("Enter your name: \n>> ").strip()
 # Returns player name or a default name(Player 1) if no text is input
@@ -12,22 +14,29 @@ def intro():
         return get_player_name.upper()
 
 
-# Randomizing computer selection
 def get_computer_choice():
+    """ Randomizing computer selection """
     cases = ["rock", "paper", "scissors"]
     return random.choice(cases)
 
 
 # PLAYER CHOICE
-# Takes in player choice
 def get_player_choice():
-    choice = input("Enter choice: \n>> ")
-    return choice.lower()
+    """ Takes player input"""
+    choice = input("Enter choice: \n>> ").lower()
+    # Validating player choice
+    choices = ["rock", "paper", "scissors"]
+    while choice not in choices:
+        print(f"\nPlease choose one of {choices[0]}, {choices[1]} or {choices[2]}")
+        choice = input("Enter choice: \n>> ").lower()
+
+    return choice
 
 
-# Main body of code that computes the player and computer choice and prints out
-# the outcome of the game
 def main():
+    """ Main body of code that computes the player and computer choice and prints out
+    the outcome of the game
+    """
     player_name = intro()
     while True:
         player_choice = get_player_choice()
@@ -55,8 +64,15 @@ def main():
             print("\nYOU LOSE!!🤣🤣😝")
             computer_score += 1
 
+        # Prints out current scores
         print(f"{player_name} : {player_score}   -   Rps AI : {computer_score}")
+
+        # Game Looping
         play_again = input("\nDo you want to play again?(yes or no): \n>> ")
+        while play_again not in ("yes", "no"):
+            print("\nPlease enter a valid response")
+            play_again = input("\nDo you want to play again?(yes or no): \n>> ")
+
         if play_again.lower().strip() == "no":
             print(f"\nThanks for playing {player_name}, see you soon!✌✌")
             break
